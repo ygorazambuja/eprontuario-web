@@ -1,5 +1,5 @@
 // Primitive
-let text: string = 'Hello'
+const text: string = 'Hello'
 const number: number = 10
 const bool: boolean = true
 
@@ -28,3 +28,22 @@ enum Color {
   Blue,
 }
 // console.log(Color);
+
+type Motor = 'eletrico' | 'gasolina' | 'flex'
+
+interface BasicCar {
+  motor: Motor
+  cavalinhoDePau: (km: number) => void
+  trocaMotor: (motor: Motor) => void
+}
+
+class Car implements BasicCar {
+  motor: Motor = 'eletrico'
+  cavalinhoDePau(km: number) {
+    console.log('Cavalinho de pau a' + km)
+  }
+
+  trocaMotor(novoMotor: Motor) {
+    this.motor = novoMotor
+  }
+}

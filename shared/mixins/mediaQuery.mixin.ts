@@ -1,5 +1,4 @@
 import Vue from 'vue'
-
 const mediaQueryMixin = Vue.extend({
   data: () => ({
     window: {
