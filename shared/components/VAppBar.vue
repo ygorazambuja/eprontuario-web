@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app-bar app clipped-right flat height="72" color="primary" dark>
-      <v-btn v-if="smallScreenAndDown" icon app @click="toggleDrawer">
+      <v-btn v-if="smallScreenAndDown" icon app @click="changeDrawerState()">
         <v-icon> mdi-menu </v-icon>
       </v-btn>
       <v-spacer />
@@ -15,7 +15,7 @@
       width="290"
       :value="drawerState"
       :permanent="mediumScreenAndUp"
-      @input="toggleDrawer"
+      @input="changeDrawerState()"
     >
       <v-card width="100%">
         <v-avatar size="48"> </v-avatar>
@@ -37,13 +37,13 @@
           <v-list-item value="DISCIPLINAS">
             <v-list-item-title> Disciplinas </v-list-item-title>
           </v-list-item>
-          <v-list-item v-if="isProfessor" v-show="false" value="MATRICULAS">
+          <v-list-item v-if="true" v-show="false" value="MATRICULAS">
             <v-list-item-title> Matriculas </v-list-item-title>
           </v-list-item>
           <v-list-item value="SUGESTOES">
             <v-list-item-title> Sugestões </v-list-item-title>
           </v-list-item>
-          <v-list-item v-if="isProfessor" value="CONFIGURACOES">
+          <v-list-item v-if="true" value="CONFIGURACOES">
             <v-list-item-title>Configurações </v-list-item-title>
           </v-list-item>
           <v-list-item @click="doLogout">
@@ -56,23 +56,25 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
 import { mapState, mapMutations } from 'vuex'
 import { mediaQueryMixin } from '~/shared/mixins'
-import { VSwitchTheme } from '~/shared/components'
+import { VSwitchTheme, VAutoCompleteInput } from '~/shared/components'
 
-export default {
-  components: { VSwitchTheme },
+export default Vue.extend({
+  components: { VSwitchTheme, VAutoCompleteInput },
   mixins: [mediaQueryMixin],
   computed: {
-    isProfessor() {
-      return false
-    },
-    ...mapState('shared', ['drawerState', 'isDark']),
+    ...mapState('shared', ['drawerState', 'isDark', 'activeTabBar']),
   },
   methods: {
     ...mapMutations('shared', ['toggleDrawer', 'toggleActiveTabBar']),
+    doLogout() {},
+    changeDrawerState() {
+      this.toggleDrawer()
+    },
   },
-}
+})
 </script>
 
 <style></style>

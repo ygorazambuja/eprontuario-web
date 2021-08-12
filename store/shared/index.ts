@@ -1,29 +1,31 @@
-import { createModule, mutation } from 'vuex-class-component'
+import { VuexModule, Module, Mutation } from 'vuex-module-decorators'
 
-export default class SharedStore extends createModule({
-  target: 'nuxt',
-  namespaced: 'shared',
-}) {
+@Module({
+  namespaced: true,
+  name: 'shared',
+})
+export default class Shared extends VuexModule {
   isDark = true
+  activeTabBar = 'HOME'
   loadingOverlay = false
   drawerState = false
-  activeTabBar = 'HOME'
 
-  @mutation toggleTheme() {
+  get allTheStateAsString() {
+    return JSON.stringify(this.state)
+  }
+
+  @Mutation
+  toggleTheme() {
     this.isDark = !this.isDark
   }
 
-  @mutation toggleLoadingOverlay() {
-    this.loadingOverlay = !this.loadingOverlay
-  }
-
-  @mutation
-  toggleDrawerState() {
+  @Mutation
+  toggleDrawer() {
     this.drawerState = !this.drawerState
   }
 
-  @mutation
-  setActiveTabBar(tabBar: string) {
+  @Mutation
+  toggleActiveTabBar(tabBar: string) {
     this.activeTabBar = tabBar
   }
 }

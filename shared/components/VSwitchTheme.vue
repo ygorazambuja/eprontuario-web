@@ -4,22 +4,22 @@
   </v-btn>
 </template>
 
-<script lang="ts">
+<script lang="tsx">
 import Vue from 'vue'
-import { mapActions, mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
+
 export default Vue.extend({
   name: 'VSwitchTheme',
   computed: {
     ...mapState('shared', ['isDark']),
   },
   mounted() {
-    console.log(this)
     this.$vuetify.theme.dark = this.isDark
   },
   methods: {
-    ...mapActions('shared', ['toggleTheme']),
+    ...mapMutations('shared', ['toggleTheme']),
     changeTheme() {
-      this.toggleTheme(!this.isDark)
+      this.toggleTheme()
       this.$vuetify.theme.dark = this.isDark
     },
   },

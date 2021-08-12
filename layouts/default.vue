@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar />
+    <v-switch-theme />
     <v-main>
       <Nuxt />
     </v-main>
@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import { VCustomFooter, VAppBar } from '~/shared/components'
+import { VCustomFooter, VSwitchTheme } from '~/shared/components'
 export default {
   components: {
     VCustomFooter,
-    VAppBar,
+    VSwitchTheme,
   },
 }
 </script>
