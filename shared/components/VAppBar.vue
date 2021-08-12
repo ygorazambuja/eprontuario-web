@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <div>
     <v-app-bar app clipped-right flat height="72" color="primary" dark>
       <v-btn v-if="smallScreenAndDown" icon app @click="toggleDrawer">
         <v-icon> mdi-menu </v-icon>
@@ -52,46 +52,27 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-
-    <v-main>
-      <Nuxt />
-    </v-main>
-    <v-custom-footer />
-  </v-app>
+  </div>
 </template>
 
-<script>
-import { mapActions, mapState } from 'vuex'
-import {
-  VSwitchTheme,
-  VCustomFooter,
-  VAutoCompleteInput,
-} from '~/shared/components'
-import { SharedActions, SharedState } from '~/store/shared'
+<script lang="ts">
+import { mapState, mapMutations } from 'vuex'
 import { mediaQueryMixin } from '~/shared/mixins'
-export default {
-  components: {
-    VSwitchTheme,
-    VCustomFooter,
-    VAutoCompleteInput,
-  },
-  mixins: [mediaQueryMixin],
-  data: () => ({
-    isLogin: true,
-  }),
-  computed: {
-    ...mapState('shared', [SharedState.activeTabBar, SharedState.drawerState]),
-    isProfessor() {
-      return true
-    },
-  },
+import { VSwitchTheme } from '~/shared/components'
 
+export default {
+  components: { VSwitchTheme },
+  mixins: [mediaQueryMixin],
+  computed: {
+    isProfessor() {
+      return false
+    },
+    ...mapState('shared', ['drawerState', 'isDark']),
+  },
   methods: {
-    ...mapActions('shared', [
-      SharedActions.toggleDrawer,
-      SharedActions.toggleActiveTabBar,
-    ]),
-    doLogout() {},
+    ...mapMutations('shared', ['toggleDrawer', 'toggleActiveTabBar']),
   },
 }
 </script>
+
+<style></style>

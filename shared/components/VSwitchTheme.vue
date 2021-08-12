@@ -13,6 +13,7 @@ export default Vue.extend({
     ...mapState('shared', ['isDark']),
   },
   mounted() {
+    console.log(this)
     this.$vuetify.theme.dark = this.isDark
   },
   methods: {

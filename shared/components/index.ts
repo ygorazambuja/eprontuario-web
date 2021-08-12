@@ -5,6 +5,7 @@ import VStickTop from '~/shared/components/VStickTop.vue'
 import VTitle from '~/shared/components/VTitle.vue'
 import VLoadingOverlay from '~/shared/components/VLoadingOverlay.vue'
 import VAutoCompleteInput from '~/shared/components/VAutoCompleteInput.vue'
+import VAppBar from '~/shared/components/VAppBar.vue'
 
 export {
   VCustomFooter,
@@ -14,4 +15,5 @@ export {
   VTitle,
   VLoadingOverlay,
   VAutoCompleteInput,
+  VAppBar,
 }

@@ -82,11 +82,12 @@ import { required, email, minLength } from 'vuelidate/lib/validators'
 
 import { mapActions } from 'vuex'
 import { VLogo, VStickTop } from '~/shared/components'
-import { SharedActions } from '~/store/shared'
+import { SharedActions } from '~/store/shared/index-normal'
 
 export default {
   components: { VStickTop, VLogo },
   mixins: [validationMixin],
+  layout: 'unlogged',
   validations: {
     form: {
       email: {

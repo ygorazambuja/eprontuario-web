@@ -118,6 +118,7 @@ import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
 export default {
   components: { VStickTop, VLogo },
   mixins: [validationMixin],
+  layout: 'unlogged',
   validations: {
     form: {
       name: {

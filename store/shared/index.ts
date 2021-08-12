@@ -1,57 +1,29 @@
-interface State {
-  isDark: boolean
-  loadingOverlay: boolean
-  drawerState: boolean
-  activeTabBar: string
-}
+import { createModule, mutation } from 'vuex-class-component'
 
-export const state = (): State => ({
-  isDark: true,
-  loadingOverlay: false,
-  drawerState: false,
-  activeTabBar: 'HOME',
-})
+export default class SharedStore extends createModule({
+  target: 'nuxt',
+  namespaced: 'shared',
+}) {
+  isDark = true
+  loadingOverlay = false
+  drawerState = false
+  activeTabBar = 'HOME'
 
-export const actions = {
-  toggleTheme({ commit }: any, payload: boolean) {
-    commit(SharedActions.toggleTheme, payload)
-  },
-  toggleLoadingOverlay({ commit }: any, payload: boolean) {
-    commit(SharedActions.toggleLoadingOverlay, payload)
-  },
-  toggleDrawer({ commit }: any, payload: boolean) {
-    commit(SharedActions.toggleDrawer, payload)
-  },
-  toggleActiveTabBar({ commit }: any, payload: string) {
-    commit(SharedActions.toggleActiveTabBar, payload)
-  },
-}
+  @mutation toggleTheme() {
+    this.isDark = !this.isDark
+  }
 
-export const mutations = {
-  toggleTheme(state: State, payload: boolean) {
-    state.isDark = payload
-  },
-  toggleLoadingOverlay(state: State, payload: boolean) {
-    state.loadingOverlay = payload
-  },
-  toggleDrawer(state: State, payload: boolean) {
-    state.drawerState = payload
-  },
-  toggleActiveTabBar(state: State, payload: string) {
-    state.activeTabBar = payload
-  },
-}
+  @mutation toggleLoadingOverlay() {
+    this.loadingOverlay = !this.loadingOverlay
+  }
 
-export const SharedActions = {
-  toggleTheme: 'toggleTheme',
-  toggleLoadingOverlay: 'toggleLoadingOverlay',
-  toggleDrawer: 'toggleDrawer',
-  toggleActiveTabBar: 'toggleActiveTabBar',
-}
+  @mutation
+  toggleDrawerState() {
+    this.drawerState = !this.drawerState
+  }
 
-export const SharedState = {
-  isDark: 'isDark',
-  loadingOverlay: 'loadingOverlay',
-  drawerState: 'drawerState',
-  activeTabBar: 'activeTabBar',
+  @mutation
+  setActiveTabBar(tabBar: string) {
+    this.activeTabBar = tabBar
+  }
 }
