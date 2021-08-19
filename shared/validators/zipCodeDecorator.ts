@@ -1,7 +1,6 @@
 /**
  * @description decorator to return blablabla
  * @param {number} length measure
- *
  */
 function hasLength(length: number) {
   return (_: any, key: string, descriptor: PropertyDescriptor) => {

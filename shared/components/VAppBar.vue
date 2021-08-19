@@ -15,7 +15,6 @@
       width="290"
       :value="drawerState"
       :permanent="mediumScreenAndUp"
-      @input="changeDrawerState()"
     >
       <v-card width="100%">
         <v-avatar size="48"> </v-avatar>
