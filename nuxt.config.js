@@ -2,6 +2,9 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
+
+  mode: process.env.NODE_ENV === 'development' ? 'spa' : 'universal',
+
   head: {
     titleTemplate: '%s - e-prontuario-app',
     title: 'e-prontuario-app',
@@ -18,7 +21,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/vuelidate'],
+  plugins: ['~/plugins/vuelidate', '~/plugins/miragejs'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
