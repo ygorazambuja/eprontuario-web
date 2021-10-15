@@ -23,7 +23,7 @@
       </v-card>
 
       <v-list shaped>
-        <v-list-item-group :value="activeTabBar" @change="toggleActiveTabBar">
+        <v-list-item-group :value="activeTabBar" @change="changeActiveTabBar">
           <v-list-item value="HOME">
             <v-list-item-title> Home </v-list-item-title>
           </v-list-item>
@@ -71,6 +71,9 @@ export default Vue.extend({
     doLogout() {},
     changeDrawerState() {
       this.toggleDrawer()
+    },
+    changeActiveTabBar(value: string) {
+      this.toggleActiveTabBar(value)
     },
   },
 })
