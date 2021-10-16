@@ -28,4 +28,9 @@ export default class Shared extends VuexModule {
   toggleActiveTabBar(tabBar: string) {
     this.activeTabBar = tabBar
   }
+
+  @Mutation
+  toggleLoadingOverlay() {
+    this.loadingOverlay = !this.loadingOverlay
+  }
 }

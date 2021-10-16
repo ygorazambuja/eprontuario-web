@@ -17,7 +17,7 @@
             <v-card-text>
               <v-form @submit.prevent="handleFormSubmit">
                 <v-row class="ma-0">
-                  <v-col cols="12 " sm="12" md="6">
+                  <v-col class="pa-1" cols="12" sm="12" md="6">
                     <v-text-field
                       v-model="form.name"
                       label="Nome"
@@ -27,7 +27,7 @@
                       data-cy="nome"
                     />
                   </v-col>
-                  <v-col sm="12" md="6">
+                  <v-col sm="12" md="6" class="pa-1">
                     <v-text-field
                       v-model="form.rga"
                       :error-messages="getRgaError"
@@ -38,8 +38,8 @@
                     />
                   </v-col>
                 </v-row>
-                <v-row class="ma-0">
-                  <v-col sm="12" md="12">
+                <v-row class="ma-0 pa-0">
+                  <v-col sm="12" md="12" class="pa-1">
                     <v-text-field
                       v-model="form.email"
                       dense
@@ -51,7 +51,7 @@
                   </v-col>
                 </v-row>
                 <v-row class="ma-0">
-                  <v-col cols="12" sm="12" md="6">
+                  <v-col cols="12" sm="12" md="6" class="pa-1">
                     <v-text-field
                       v-model="form.password"
                       dense
@@ -65,7 +65,7 @@
                       @click:append="togglePassword = !togglePassword"
                     />
                   </v-col>
-                  <v-col sm="12" md="6">
+                  <v-col sm="12" md="6" class="pa-1">
                     <v-text-field
                       v-model="form.confirmationPassword"
                       dense
@@ -86,9 +86,14 @@
 
                 <v-row class="mt-5 mx-0" justify="center">
                   <v-col>
-                    <NuxtLink to="/login">
-                      <v-btn block outlined data-cy="btn-back"> Voltar </v-btn>
-                    </NuxtLink>
+                    <v-btn
+                      block
+                      outlined
+                      data-cy="btn-back"
+                      @click="goTo('/login')"
+                    >
+                      Voltar
+                    </v-btn>
                   </v-col>
                   <v-col>
                     <v-btn
@@ -112,12 +117,14 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { VStickTop, VLogo } from '@/shared/components'
 import { validationMixin } from 'vuelidate'
 import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
+import { VStickTop, VLogo } from '@/shared/components'
+import { routerMixin } from '~/shared/mixins'
+
 export default {
   components: { VStickTop, VLogo },
-  mixins: [validationMixin],
+  mixins: [validationMixin, routerMixin],
   layout: 'unlogged',
   validations: {
     form: {

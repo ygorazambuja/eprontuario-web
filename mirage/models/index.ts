@@ -6,4 +6,9 @@ export default {
     cpf: '',
     sexo: '',
   }),
+
+  login: Model.extend({
+    email: '',
+    password: '',
+  }),
 }

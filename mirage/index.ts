@@ -1,15 +1,20 @@
 import { Server } from 'miragejs'
-import routes from './routes'
 import factories from './factories'
 import seeds from './seeds'
+import modules from './modules'
 
 const config = (environment: string) => {
   const config = {
     environment,
     namespace: 'api',
     factories,
+    timing: 2500,
     seeds,
-    routes,
+    routes() {
+      Object.keys(modules).forEach((module) => {
+        modules[module].default.call(this)
+      })
+    },
   }
   return config
 }

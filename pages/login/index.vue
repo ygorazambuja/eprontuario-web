@@ -3,17 +3,17 @@
     <v-container fluid>
       <v-stick-top />
       <v-logo />
+      <h1 class="text--primary pb-2" style="text-align: center">
+        E-Prontuario
+      </h1>
+
       <v-layout justify-center>
         <v-flex xs12 sm8 md5>
           <v-card
+            rounded
             class="elevation-12 py-3 px-5 flex-column align-center"
-            shaped
           >
-            <v-card-title class="py-5 mx-auto">
-              <h4 class="text--primary">E-Prontuario</h4>
-            </v-card-title>
-
-            <v-card-text>
+            <v-card-text class="pa-2">
               <v-form>
                 <v-text-field
                   v-model="form.email"
@@ -43,28 +43,29 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-layout justify-center>
-                <v-btn
-                  large
-                  color="primary"
-                  class="mr-1"
-                  data-cy="btn-next"
-                  @click="doLogin"
-                >
-                  Entrar
-                </v-btn>
-                <NuxtLink to="/login/cadastro">
+              <v-col>
+                <v-row class="mb-2">
+                  <v-btn
+                    color="primary"
+                    data-cy="btn-next"
+                    block
+                    @click="doLogin"
+                  >
+                    Entrar
+                  </v-btn>
+                </v-row>
+                <v-row class="mb-2">
                   <v-btn
                     data-cy="btn-register"
-                    large
                     color="primary"
                     outlined
-                    class="ml-1"
+                    block
+                    @click="goTo('/login/cadastro')"
                   >
                     Registrar
                   </v-btn>
-                </NuxtLink>
-              </v-layout>
+                </v-row>
+              </v-col>
             </v-card-actions>
             <v-row justify="center" class="ma-2">
               <NuxtLink to="esqueci-a-senha"> Esqueceu a Senha ? </NuxtLink>
@@ -80,13 +81,13 @@
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength } from 'vuelidate/lib/validators'
 
-import { mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
 import { VLogo, VStickTop } from '~/shared/components'
-import { SharedActions } from '~/store/shared/index-normal'
-
+import { toastMixin } from '~/shared/mixins'
+import { createToastErrorMessage } from '~/shared/helpers/createToastErrorMessage'
 export default {
   components: { VStickTop, VLogo },
-  mixins: [validationMixin],
+  mixins: [validationMixin, toastMixin],
   layout: 'unlogged',
   validations: {
     form: {
@@ -125,16 +126,23 @@ export default {
   },
 
   methods: {
-    ...mapActions('shared', [SharedActions.toggleLoadingOverlay]),
-    doLogin() {
+    ...mapMutations('shared', ['toggleLoadingOverlay']),
+    async doLogin() {
       this.$v.$touch()
       if (this.$v.$invalid) return
 
-      this.toggleLoadingOverlay(true)
-
-      setTimeout(() => {
+      try {
+        this.toggleLoadingOverlay(true)
+        const response = await this.$axios.post('api/login', this.form)
+      } catch (error) {
+        const errors = createToastErrorMessage(error)
+        errors.map((error) => this.createErrorToast(error))
+      } finally {
         this.toggleLoadingOverlay(false)
-      }, 2000)
+      }
+    },
+    goTo(route) {
+      this.$router.push(route)
     },
   },
 }
