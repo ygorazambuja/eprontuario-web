@@ -25,7 +25,8 @@
       "@nuxtjs/axios",
       "@types/node",
       "vuetify",
-      "vuelidate"
+      "vuelidate",
+      "@nuxtjs/toast"
     ]
   },
   "exclude": ["node_modules", ".nuxt", "dist"]
