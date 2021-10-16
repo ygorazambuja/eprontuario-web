@@ -40,6 +40,7 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    "@nuxtjs/toast"
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -59,7 +60,7 @@ export default {
       dark: true,
       themes: {
         dark: {
-          primary: colors.blue.darken1,
+          primary: colors.blue.lighten2,
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
