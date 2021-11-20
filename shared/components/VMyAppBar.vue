@@ -58,14 +58,15 @@
 import Vue from 'vue'
 import { mapState, mapMutations } from 'vuex'
 import { mediaQueryMixin } from '~/shared/mixins'
-import { VSwitchTheme, VAutoCompleteInput } from '~/shared/components'
 
 export default Vue.extend({
-  components: { VSwitchTheme, VAutoCompleteInput },
+  name: 'VMyAppBar',
   mixins: [mediaQueryMixin],
+
   computed: {
     ...mapState('shared', ['drawerState', 'isDark', 'activeTabBar']),
   },
+
   methods: {
     ...mapMutations('shared', ['toggleDrawer', 'toggleActiveTabBar']),
     doLogout() {},
@@ -73,7 +74,27 @@ export default Vue.extend({
       this.toggleDrawer()
     },
     changeActiveTabBar(value: string) {
-      this.toggleActiveTabBar(value)
+      if (value && value !== this.activeTabBar) {
+        this.toggleActiveTabBar(value)
+        this.routerToPage(this.activeTabBar)
+      }
+    },
+
+    getCorrectRoute(key: string) {
+      const ROUTES = {
+        HOME: '/',
+        DOCUMENTOS: '/documentos',
+        PACIENTES: '/pacientes',
+        DISCIPLINAS: '/disciplinas',
+        MATRICULAS: '/matriculas',
+        SUGESTOES: '/sugestoes',
+        CONFIGURACOES: '/configuracoes',
+      }
+      return ROUTES[key]
+    },
+
+    routerToPage(activeBar: string) {
+      this.$router.push(this.getCorrectRoute(activeBar))
     },
   },
 })

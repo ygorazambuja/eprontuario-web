@@ -1,5 +1,7 @@
 // @ts-nocheck
-export default {
+
+import Vue from 'vue'
+export default Vue.extend({
   methods: {
     createSuccessToast(message: string) {
       this.$toast.success(message, {
@@ -16,4 +18,4 @@ export default {
       })
     },
   },
-}
+})

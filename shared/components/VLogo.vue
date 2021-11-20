@@ -9,9 +9,10 @@
   </v-layout>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import { mapState } from 'vuex'
-export default {
+export default Vue.extend({
   name: 'VLogo',
   computed: {
     ...mapState('shared', ['isDark']),
@@ -23,7 +24,7 @@ export default {
         : require('@/assets/ufms_logo_positivo_assinatura_vertical_rgb.png')
     },
   },
-}
+})
 </script>
 
 <style scoped></style>

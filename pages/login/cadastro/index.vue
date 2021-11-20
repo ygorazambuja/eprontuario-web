@@ -119,11 +119,9 @@
 import { mapActions } from 'vuex'
 import { validationMixin } from 'vuelidate'
 import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
-import { VStickTop, VLogo } from '@/shared/components'
 import { routerMixin } from '~/shared/mixins'
 
 export default {
-  components: { VStickTop, VLogo },
   mixins: [validationMixin, routerMixin],
   layout: 'unlogged',
   validations: {

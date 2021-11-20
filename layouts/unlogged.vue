@@ -8,11 +8,5 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { VCustomFooter, VLoadingOverlay } from '@/shared/components'
-export default Vue.extend({
-  components: {
-    VCustomFooter,
-    VLoadingOverlay,
-  },
-})
+export default Vue.extend({})
 </script>

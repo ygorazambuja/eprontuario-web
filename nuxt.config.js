@@ -21,10 +21,20 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/vuelidate', '~/plugins/miragejs'],
+  plugins: [
+    '~/plugins/vuelidate',
+    '~/plugins/miragejs',
+    '~/plugins/vueTheMask',
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: [
+    '~/components',
+    {
+      path: '@/shared/components',
+      extensions: ['vue'],
+    },
+  ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -40,7 +50,7 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
-    "@nuxtjs/toast"
+    '@nuxtjs/toast',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

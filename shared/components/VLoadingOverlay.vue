@@ -4,12 +4,13 @@
   </v-overlay>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import { mapState } from 'vuex'
-export default {
+export default Vue.extend({
   name: 'VLoadingOverlay',
   computed: {
     ...mapState('shared', ['loadingOverlay']),
   },
-}
+})
 </script>

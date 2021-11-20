@@ -5,10 +5,8 @@
 </template>
 
 <script>
-import { VSwitchTheme } from '~/shared/components'
 export default {
   name: 'VStickTop',
-  components: { VSwitchTheme },
   props: {
     route: {
       type: String,

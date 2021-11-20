@@ -10,10 +10,6 @@ export default class Shared extends VuexModule {
   loadingOverlay = false
   drawerState = false
 
-  get allTheStateAsString() {
-    return JSON.stringify(this.state)
-  }
-
   @Mutation
   toggleTheme() {
     this.isDark = !this.isDark

@@ -82,12 +82,10 @@ import { validationMixin } from 'vuelidate'
 import { required, email, minLength } from 'vuelidate/lib/validators'
 
 import { mapMutations } from 'vuex'
-import { VLogo, VStickTop } from '~/shared/components'
-import { toastMixin } from '~/shared/mixins'
+import { routerMixin, toastMixin } from '~/shared/mixins'
 import { createToastErrorMessage } from '~/shared/helpers/createToastErrorMessage'
 export default {
-  components: { VStickTop, VLogo },
-  mixins: [validationMixin, toastMixin],
+  mixins: [validationMixin, toastMixin, routerMixin],
   layout: 'unlogged',
   validations: {
     form: {
@@ -133,7 +131,9 @@ export default {
 
       try {
         this.toggleLoadingOverlay(true)
-        const response = await this.$axios.post('api/login', this.form)
+        await this.$axios.post('api/login', this.form)
+        this.createSuccessToast('Login realizado com sucesso!')
+        this.goTo('/')
       } catch (error) {
         const errors = createToastErrorMessage(error)
         errors.map((error) => this.createErrorToast(error))
