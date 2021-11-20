@@ -1,11 +1,11 @@
 import { Model } from 'miragejs'
 
+import pacienteModel from './paciente.model'
+import professorModel from './professor.model'
+
 export default {
-  paciente: Model.extend({
-    nome: '',
-    cpf: '',
-    sexo: '',
-  }),
+  paciente: pacienteModel,
+  professores: professorModel,
 
   login: Model.extend({
     email: '',

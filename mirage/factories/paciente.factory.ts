@@ -3,6 +3,7 @@ import faker from 'faker'
 
 export default {
   paciente: Factory.extend({
+    id: (i) => i,
     nome() {
       return faker.name.firstName()
     },

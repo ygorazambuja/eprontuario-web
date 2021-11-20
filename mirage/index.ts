@@ -8,7 +8,7 @@ const config = (environment: string) => {
     environment,
     namespace: 'api',
     factories,
-    timing: 2500,
+    timing: 800,
     seeds,
     routes() {
       Object.keys(modules).forEach((module) => {
