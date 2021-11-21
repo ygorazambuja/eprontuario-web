@@ -1,7 +1,5 @@
 <template>
-  <v-container>
-    <h1>Configurações</h1>
-
+  <v-page-template title="Configurações">
     <v-row class="mx-4 mt-5">
       <v-col cols="12" sm="12" md="6">
         <v-card elevation="12" hover ripple @click="goTo('/professores')">
@@ -48,7 +46,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </v-page-template>
 </template>
 
 <script lang="ts">
@@ -58,4 +56,5 @@ export default Vue.extend({
   mixins: [routerMixin],
 })
 </script>
+VPageTemplate
 <style></style>

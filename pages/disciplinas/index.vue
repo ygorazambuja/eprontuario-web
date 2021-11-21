@@ -1,7 +1,5 @@
 <template>
-  <v-container fluid>
-    <h1>Disciplinas</h1>
-  </v-container>
+  <v-page-template title="Disciplina"> </v-page-template>
 </template>
 
 <script>
@@ -9,3 +7,5 @@ export default {}
 </script>
 
 <style></style>
+
+VPageTemplate

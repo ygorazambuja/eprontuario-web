@@ -1,7 +1,5 @@
 <template>
-  <v-container fluid>
-    <h1>Sugestões</h1>
-
+  <v-page-template title="Sugestões">
     <v-card class="my-5 pa-5">
       <v-card-title> Feedback </v-card-title>
       <v-card-subtitle>
@@ -15,12 +13,12 @@
       >
         <v-row class="pa-5">
           <v-text-field
-            v-model="email"
+            :value="user.email"
             label="Digite seu email"
             outlined
             type="email"
-            hint="Ex: joaopiolho@gmail.com"
             readonly
+            disabled
           >
           </v-text-field>
         </v-row>
@@ -40,35 +38,44 @@
         </v-row>
       </v-form>
     </v-card>
-  </v-container>
+  </v-page-template>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
+import VPageTemplate from '~/shared/components/VPageTemplate.vue'
 import { toastMixin } from '~/shared/mixins'
 
+import { CreateFeedbackUseCase } from '~/usecases/feedback/CreateFeedbackUseCase'
+
 export default Vue.extend({
+  components: { VPageTemplate },
   mixins: [toastMixin],
   data: () => ({
-    email: 'joaopiolho@gmail.com',
     feedback: '',
     isFormValid: false,
     feedbackRules: {
       required: (value: string) => !!value || 'Este campo é obrigatório',
     },
   }),
-
+  computed: {
+    ...mapState('User', ['user']),
+  },
   methods: {
     ...mapMutations('shared', ['toggleLoadingOverlay']),
     async handleFormSubmit() {
-      const { email, feedback } = this
+      const { feedback } = this
+      const { email } = this.user
       this.toggleLoadingOverlay()
       try {
-        const { data } = await this.$axios.post('api/feedback', {
-          email,
-          feedback,
-        })
+        const { data } = await new CreateFeedbackUseCase(
+          {
+            email,
+            content: feedback,
+          },
+          this.$axios
+        ).execute()
         this.createSuccessToast(data.message)
       } catch (error) {
         this.createErrorToast('Não foi possivel mandar o feedback')

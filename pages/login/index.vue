@@ -81,7 +81,7 @@
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength } from 'vuelidate/lib/validators'
 
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 import { routerMixin, toastMixin } from '~/shared/mixins'
 import { createToastErrorMessage } from '~/shared/helpers/createToastErrorMessage'
 export default {
@@ -106,7 +106,9 @@ export default {
       password: '',
     },
   }),
+
   computed: {
+    ...mapGetters('User', ['isLoggedIn']),
     getEmailErrors() {
       return this.$v.form.email.$error && !this.$v.form.email.required
         ? 'Campo obrigatório'
@@ -123,15 +125,26 @@ export default {
     },
   },
 
+  mounted() {
+    this.redirectUserIfLoggedIn()
+  },
+
   methods: {
     ...mapMutations('shared', ['toggleLoadingOverlay']),
+    ...mapMutations('User', ['setUser', 'setToken']),
     async doLogin() {
       this.$v.$touch()
       if (this.$v.$invalid) return
 
       try {
         this.toggleLoadingOverlay(true)
-        await this.$axios.post('api/login', this.form)
+        const { data } = await this.$axios.post('api/login', this.form)
+
+        const { token, user } = data
+
+        this.setUser(user)
+        this.setToken(token)
+
         this.createSuccessToast('Login realizado com sucesso!')
         this.goTo('/')
       } catch (error) {
@@ -143,6 +156,11 @@ export default {
     },
     goTo(route) {
       this.$router.push(route)
+    },
+    redirectUserIfLoggedIn() {
+      if (this.isLoggedIn) {
+        this.goTo('/')
+      }
     },
   },
 }

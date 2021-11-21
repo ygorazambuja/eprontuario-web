@@ -1,7 +1,6 @@
 <template>
-  <v-container>
-    <v-title route="/" title="Pacientes" />
-    <v-row justify="end" class="mr-4">
+  <v-page-template title="Pacientes">
+    <v-row justify="end">
       <v-btn color="success" @click="goTo('/pacientes/novo-paciente')">
         Adicionar Novo
       </v-btn>
@@ -41,13 +40,14 @@
         </template>
       </v-data-table>
     </v-card>
-  </v-container>
+  </v-page-template>
 </template>
 
 <script>
+import Vue from 'vue'
 import { mapMutations } from 'vuex'
 import { routerMixin } from '~/shared/mixins'
-export default {
+export default Vue.extend({
   mixins: [routerMixin],
 
   data: () => ({
@@ -89,5 +89,5 @@ export default {
       this.toggleLoadingOverlay()
     },
   },
-}
+})
 </script>

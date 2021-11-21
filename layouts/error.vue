@@ -16,9 +16,9 @@ export default {
   },
   methods: {
     redirectToLoginInTwoSeconds() {
-      setTimeout(() => {
-        this.$router.push('/login')
-      }, 2000)
+      // setTimeout(() => {
+      //   this.$router.push('/login')
+      // }, 2000)
     },
   },
 }

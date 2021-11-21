@@ -3,7 +3,7 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
 
-  mode: process.env.NODE_ENV === 'development' ? 'spa' : 'universal',
+  mode: process.env.NODE_ENV === 'development' ? 'universal' : 'universal',
 
   head: {
     titleTemplate: '%s - e-prontuario-app',
@@ -25,6 +25,7 @@ export default {
     '~/plugins/vuelidate',
     '~/plugins/miragejs',
     '~/plugins/vueTheMask',
+    { src: '~/plugins/vuex-persist', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

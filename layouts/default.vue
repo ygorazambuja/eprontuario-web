@@ -12,5 +12,9 @@
 </template>
 
 <script>
-export default {}
+import Vue from 'vue'
+
+export default Vue.extend({
+  middleware: ['auth'],
+})
 </script>

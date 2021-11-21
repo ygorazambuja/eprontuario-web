@@ -1,4 +1,5 @@
 import { Paciente } from './paciente'
 import { Professor } from './professor'
+import { Feedback } from './feedback'
 
-export { Paciente, Professor }
+export { Paciente, Professor, Feedback }

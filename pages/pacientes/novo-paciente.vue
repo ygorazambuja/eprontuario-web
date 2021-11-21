@@ -77,15 +77,17 @@
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue'
 
 import { LAYOUT } from '~/constants'
-import VTitle from '~/shared/components/VTitle.vue'
+import { Paciente } from '~/interfaces/paciente'
+import { toastMixin } from '~/shared/mixins'
 
+import { CreatePacienteUseCase } from '~/usecases/paciente/CreatePacienteUseCase'
 export default Vue.extend({
   name: 'NovoPaciente',
-  components: { VTitle },
+  mixins: [toastMixin],
   layout: LAYOUT.default,
   data: () => ({
     nome: '',
@@ -116,9 +118,41 @@ export default Vue.extend({
     },
   },
   methods: {
-    saveAndContinue() {},
-    saveAndExit() {},
-    goBack() {},
+    async saveAndContinue() {
+      await this.createPacienteAsync()
+      this.cleanupForm()
+    },
+    async saveAndExit() {
+      await this.createPacienteAsync()
+      this.goBack()
+    },
+
+    goBack() {
+      this.$router.push('/pacientes')
+    },
+
+    async createPacienteAsync() {
+      const paciente: Omit<Paciente, 'id'> = {
+        nome: this.nome,
+        cpf: this.cpf,
+        genero: this.gender,
+      }
+
+      try {
+        await new CreatePacienteUseCase(paciente, this.$axios).execute()
+        this.createSuccessToast('Paciente Adicionado')
+      } catch (error) {
+        this.createErrorToast('Paciente não pode ser adicionado')
+      }
+    },
+
+    cleanupForm() {
+      this.nome = ''
+      this.cpf = ''
+      this.gender = ''
+
+      this.$refs.form.resetValidation()
+    },
   },
 })
 </script>
